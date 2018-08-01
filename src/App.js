@@ -15,7 +15,7 @@ class App extends Component {
     return (
       <div className="App" style={{height: "100%"}} >
         <header className="App-header">
-          <h1 className="App-title">RestaurantReview<span>Glasgow</span></h1>
+          <h1 className="App-title">RestaurantReview<span>Local</span></h1>
         </header>
         <Content restaurant={this.state.restaurants} />        
         </div>
