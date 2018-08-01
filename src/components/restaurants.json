@@ -1,0 +1,87 @@
+[
+   {
+      "restaurantName":"The Gannet",
+      "address":"1115 Argyll Street, Glasgow, G3 8TB",
+      "lat":55.8650356,
+      "long":-4.2851302,
+      "id": null,
+      "ratings":[
+         {
+            "stars":5,
+            "comment":"Great! Delicious local produce."
+         },
+         {
+            "stars":5,
+            "comment":"Would Highly recommend!"
+         }
+      ]      
+   },
+   {
+      "restaurantName":"Seb and Mili",
+      "address":"1122 Argyll Street, Glasgow, G3 8TD",
+      "lat":55.8649902,
+      "long":-4.2849935,
+      "id": null,
+      "ratings":[
+         {
+            "stars":5,
+            "comment":"Fantastic coffee!"
+         },
+         {
+            "stars":4,
+            "comment":"Great cakes, but had run out of my favourite!"
+         }
+      ]
+   },
+   {
+      "restaurantName":"Mother India's Cafe",
+      "address":"1355 Argyll Street, Glasgow, G3 8AD",
+      "lat":55.8674492,
+      "long":-4.2909413,
+      "id": null,
+      "ratings":[
+         {
+            "stars":3,
+            "comment":"Great food by my dish was too spicy for me!"
+         },
+         {
+            "stars":5,
+            "comment":"My favourite Indian restaurant, would highly recommend!."
+         }
+      ]
+   },
+   {
+      "restaurantName":"6 Degrees North",
+      "address":"566 Dumbarton Road, Glasgow G11 6RH",
+      "lat":55.8706967,
+      "long":-4.3156236,
+      "id": null,
+      "ratings":[
+         {
+            "stars":4,
+            "comment":"Lively pub with great atmosphere!"
+         },
+         {
+            "stars":2,
+            "comment":"Service too slow!"
+         }
+      ]
+   },
+   {
+      "restaurantName":"Ichiban Fusion",
+      "address":"184 Dumbarton Road, Glasgow G11 6UN",
+      "lat":55.8708496,
+      "long":-4.3009534,
+      "id": null,
+      "ratings":[
+         {
+            "stars":5,
+            "comment":"Great Japanese Food!"
+         },
+         {
+            "stars":1,
+            "comment":"Our food came cold!"
+         }
+      ]
+   }
+]

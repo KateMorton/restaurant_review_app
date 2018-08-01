@@ -1,0 +1,43 @@
+form {
+  font-size: 10px;
+  font-family: 'News Cycle', sans-serif;
+  margin-top: 109px;
+  padding-top: 0px;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #e1e1df;
+}
+
+input[type=radio] {
+  position: absolute;
+  width: 40px;
+  height: 30px;
+  opacity: 0;
+}
+
+label {
+  color: #ccbe1d;
+  display: inline-block;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 20px;
+  border-left: 1px solid #e1e1df;
+}
+
+input[type=radio]:checked + label {
+  color: #e1e1df;
+  background: #228360;
+}
+
+.radio-group {
+  border: 1px solid #e1e1df;
+  display: inline-block;
+  margin: 20px;
+  overflow: hidden;
+  margin: 5px;
+}
+
+.title {
+    border: 0;
+    padding-top: 0;
+    height: 20px;
+}
