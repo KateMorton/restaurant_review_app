@@ -115,6 +115,7 @@ class Content extends React.Component {
     let displayRestaurants = this.state.restaurants.filter(item => (item.long > this.state.bounds.west && 
             item.long < this.state.bounds.east) && (item.lat < this.state.bounds.north && item.lat > this.state.bounds.south));
 
+    // filters restaurants dependent on if a marker has been clicked or not
     let filteredRestaurants;
 
     if(this.state.restaurantTitle !== '') {
