@@ -14,14 +14,14 @@ class Content extends React.Component {
         this.state = {
               restaurants: this.props.restaurant,
               bounds: {},
-              zoom: 14,
               coords: {
                   lat: "",
                   long: ""
               },
               filter: 0,              
               showForm: false, //determines restaurant form visibility
-              newMarker: false //determines temp marker visibility
+              newMarker: false, //determines temp marker visibility
+              restaurantTitle: ''
             }    
     }
 
@@ -43,6 +43,24 @@ class Content extends React.Component {
 
   //hides new marker and sidebar
   cancel = display => this.setState(display);
+
+  //displays restaurant in sidebar on marker click
+  showRestaurant = title => {
+    this.setState({
+      restaurantTitle: ''
+    });
+    this.setState({
+      restaurantTitle: title,
+      visible: true });    
+  };
+
+  // closes individual restaurant listing
+  closeRest = display => this.setState(display);
+
+  //filter function for display individual listing
+  restFilter(item) {
+      return item.restaurantName === this.state.restaurantTitle;   
+  }
   
   
   //adds new restaurant details provided by user to state 
@@ -55,8 +73,7 @@ class Content extends React.Component {
            return{restaurants}});
   }
 
-    
-  //add results from google places api to state.
+ //add results from google places api to state.
   googlePlaces = (places) => {
       let results = places.results;
       let placesRestaurants = results.map(place => {
@@ -94,12 +111,20 @@ class Content extends React.Component {
 
   render() { 
 
-    //filters restaurants based on latitude, longitude
+    //filters restaurants based on latitude and longitdue
     let displayRestaurants = this.state.restaurants.filter(item => (item.long > this.state.bounds.west && 
             item.long < this.state.bounds.east) && (item.lat < this.state.bounds.north && item.lat > this.state.bounds.south));
 
+    let filteredRestaurants;
+
+    if(this.state.restaurantTitle !== '') {
+        filteredRestaurants =  displayRestaurants.filter(item => this.restFilter(item))
+    } else if(this.state.restaurantTitle === '') {
+       filteredRestaurants = displayRestaurants;
+    }
+
     //maps thought filtered list and creates a Restaurants component for each restaurant
-    let restaurantList = displayRestaurants.map(item => {
+    let filterList = filteredRestaurants.map(item => {
           let rating = item.ratings;
           let stars = 0;
           rating.forEach(rate => {
@@ -109,14 +134,20 @@ class Content extends React.Component {
 
           if(isNaN(averageRating)){
             averageRating = 0;
-          }
-        return <Restaurants key={uuid.v4()} item={item} average={averageRating} filter={this.state.filter}/>;
+          }          
+                     
+          return <Restaurants key={uuid.v4()} 
+                              item={item} 
+                              average={averageRating} 
+                              filter={this.state.filter} 
+                              close={this.closeRest}
+                              title={this.state.restaurantTitle}/>;                
     })
 
     const { visible } = this.state
     
     return (
-      <div style={{height: "100%"}}>
+      <div>
         <div className="button">
           <Button onClick={this.toggleVisibility}>List Restaurants</Button>
         </div>
@@ -139,21 +170,21 @@ class Content extends React.Component {
                              cancelAdd={this.cancel}
                              />
               <ul style={{padding: "0px", margin: "0px"}}>              
-                {restaurantList}              
+                {filterList}                            
               </ul>
           </Sidebar>
-          <Sidebar.Pusher style={{height: "100%"}}>
-            <Segment basic style={{padding : "0px", marginTop: "105px", height: "100%"}}>
+          <Sidebar.Pusher>
+            <Segment basic style={{padding : "0px", marginTop: "105px", height: "600px"}}>
               <div style={{height: "100%"}}> 
-                <Embed active={true} placeholder='' style={{height: "100%"}}>
+                <Embed active={true} placeholder=''>
                     <GoogleMaps restaurants={this.state.restaurants}
                                 addMarker={this.state.newMarker}
                                 showMarker={this.toggleMarker}
                                 newBounds={this.updateBounds}
                                 addRest={this.userRest} 
                                 listingCoords={this.restCoords}
-                                zoom={this.mapZoom}
                                 addRestaurants={this.googlePlaces}
+                                openRestaurant={this.showRestaurant}
                                 />
                 </Embed>
               </div>
