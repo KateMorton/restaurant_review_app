@@ -8,13 +8,26 @@ import uuid from 'uuid'
 let defaultStyle = {
     listStyle: "none",
     textAlign: "left",
-    background: "#f1f1f1",
+    background: "",
     padding : "0",
     transition: "color 1s ease-out"
 }
 
 let fancyFont = {
     fontFamily: "'Special Elite', cursive",
+}
+
+let buttonStyle = {
+    ...fancyFont,
+    fontSize: "30px",
+    borderWidth: "0",
+    float: "right",
+    color: "#228360",
+    backgroundColor: "#f1f1f1",
+    height: "20px",
+    marginRight: "20px",
+    marginBottom: "10px",
+    marginTop: "-10px"
 }
 
 class Restaurants extends React.Component {
@@ -92,6 +105,11 @@ class Restaurants extends React.Component {
 
     //displays or hides text alerting user of no reviews available
     reviewText = display => this.setState(display);  
+
+    // closes individual restaurant listing
+    closeRestaurant = () => {
+        this.props.close({restaurantTitle : '', visible: this.state.visible});
+    }
     
     render(){
         let listStyle = {
@@ -115,6 +133,18 @@ class Restaurants extends React.Component {
             display: "block"
           }
         }
+
+        // updates close button to display on single restaurant display 
+        let buttonDisp = {
+            display: "none"
+        }
+
+        if(this.props.title !== '') {
+            buttonDisp = {
+                display: "block"
+            }
+        }
+        console.log(buttonDisp);
            
         //Streetview api for listing image
         let lat = this.state.item.lat;
@@ -146,8 +176,10 @@ class Restaurants extends React.Component {
                ...listStyle,
                textAlign: "center", 
                borderBottom:"2px solid #228360", 
-               paddingTop: "30px"}}>
-                <h3 
+               paddingTop: "20px"}}>
+               <button type="button" onClick={this.closeRestaurant} style={{...buttonDisp, ...buttonStyle}} 
+               aria-label="Close Account Info Modal Box">&times;</button>
+               <h3 
                    style={{...fancyFont, 
                            fontSize: "1.5rem",
                            color: "#cb2029"}}>
@@ -176,8 +208,8 @@ class Restaurants extends React.Component {
                    </h4>
                     {reviews}
                     <p style={{...defaultStyle, ...noReviews, paddingLeft: "20px"}}>No user reviews added</p> 
-                    <AddReview onSave={this.saveRating} hideText={this.reviewText}/>
-                </div>
+                    <AddReview onSave={this.saveRating} hideText={this.reviewText}/>                    
+                </div>                
            </li>)                                                                                    
     }
 }

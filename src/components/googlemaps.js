@@ -81,7 +81,7 @@ export class GoogleMaps extends React.Component {
         let center = JSON.stringify(map.getCenter());
         this.props.newBounds({bounds : JSON.parse(bounds)});//updates bounds state in content component
         this.setState({
-            center: JSON.parse(center),            
+            center: JSON.parse(center)            
         });
 
         //retrieves places data from google places api using center location
@@ -119,6 +119,10 @@ export class GoogleMaps extends React.Component {
           });
       }
     }
+
+    onMarkerClick = (props, marker, e) => {
+      this.props.openRestaurant(props.title);
+    }
     
    render() {
      
@@ -136,6 +140,7 @@ export class GoogleMaps extends React.Component {
      if(this.props.restaurants){
        markers = this.props.restaurants.map(marker => {        
         return(<Marker 
+                onClick = {this.onMarkerClick}
                 key={uuid.v4()}
                 position={{lat: marker.lat, lng: marker.long}}
                 title={marker.restaurantName}
